@@ -1,9 +1,9 @@
-## NeuAurora-Spider
+# Neu-Aurora-Spider
+🔥🔥🔥东北大学最新爬虫🔥🔥🔥
 #### 如你所见，这是一个东北大学的爬虫项目，在浏览了许许多多关于东北大学的爬虫项目之后，并没有发现一个满足我的需求的，于是自己动手实现了一个。
 需知：此项目为了兼容Android开发，使用了Java+Okhttp的方案进行开发，并且也提供了json与数据互相转化的方法。
 
-如需要修改源代码使用，请下载后将com.wzt.aurora.spider包放入你的项目，然后你就可以修改源代码以适应你的要求；<br>
-如并无特殊功能实现，请直接下载jar包使用
+请下载后将com.wzt.aurora.spider包放入你的项目，然后你就可以修改源代码以适应你的要求；<br>
 
 ### 快速开始
 ``````Java
@@ -92,6 +92,3 @@ public class Main implements Value.RoomHandleValue, Value.NeuVpnHandleValue {
     }
 }
 ``````
-### 数据格式
-
-
