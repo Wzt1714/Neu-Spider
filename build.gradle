@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+group 'com.wzt.aurora.spider'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    dependencies {
+        // define a BOM and its version
+        implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+
+        // define any required OkHttp artifacts without version
+        implementation("com.squareup.okhttp3:okhttp")
+        implementation("com.squareup.okhttp3:logging-interceptor")
+    }
+    // https://mvnrepository.com/artifact/org.jsoup/jsoup
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
+    // https://mvnrepository.com/artifact/net.sf.json-lib/json-lib
+    implementation 'net.sf.json-lib:json-lib:2.4:jdk15'
+    // https://mvnrepository.com/artifact/junit/junit
+//    testImplementation group: 'junit', name: 'junit', version: '4.12'
+//
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    String someString = ''
+    configurations.runtimeClasspath.each {
+//        someString = someString + " lib//"+it.name
+        someString = someString + " "+it.name
+    }
+    manifest {
+//        attributes 'Main-Class': 'com.xbs.AppMain'
+        attributes 'Class-Path': someString
+    }
+}
+//清除上次的编译过的文件
+task clearPj(type:Delete){
+    delete 'build','target'
+}
+task copyJar(type:Copy){
+    from configurations.runtimeClasspath
+    into ('build/libs')
+}
+//把JAR复制到目标目录
+task release(type: Copy,dependsOn: [build,copyJar]) {
+// from 'conf'
+// into ('build/libs/eachend/conf') // 目标位置
+}
