@@ -10,7 +10,7 @@
 请下载后将com.wzt.aurora.spider包放入你的项目，然后你就可以修改源代码以适应你的要求；或者直接将jar包下载后导入
 
 -----
-
+更新日志请点击[此处](https://github.com/Wzt1714/Neu-Aurora-Spider/UPDATE.md)
 ## 快速开始
 在使用jar包或源代码之前请先添加依赖，如果使用Gradle构建时，添加如下依赖：
 ``````gradle
