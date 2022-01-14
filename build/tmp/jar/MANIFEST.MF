@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Class-Path:  lib//logging-interceptor-4.9.0.jar lib//okhttp-4.9.0.jar 
- lib//jsoup-1.13.1.jar lib//json-lib-2.4-jdk15.jar lib//commons-beanut
- ils-1.8.0.jar lib//commons-collections-3.2.1.jar lib//ezmorph-1.0.6.j
- ar lib//commons-lang-2.5.jar lib//commons-logging-1.1.1.jar lib//okio
- -jvm-2.8.0.jar lib//kotlin-stdlib-jdk8-1.4.10.jar lib//kotlin-stdlib-
- jdk7-1.4.10.jar lib//kotlin-stdlib-1.4.10.jar lib//kotlin-stdlib-comm
- on-1.4.10.jar lib//annotations-13.0.jar
-
