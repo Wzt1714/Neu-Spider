@@ -36,6 +36,7 @@ import java.util.regex.Matcher;
  * @see com.wzt.aurora.spider.handle.NeuHandle
  * @see com.wzt.aurora.spider.handle.VpnHandle
  * @see com.wzt.aurora.spider.handle.RoomHandle
+ * @see com.wzt.aurora.spider.handle.AutoHandle
  */
 public class NeuRequest {
     /**
@@ -45,6 +46,7 @@ public class NeuRequest {
      * @see com.wzt.aurora.spider.handle.NeuHandle
      * @see com.wzt.aurora.spider.handle.VpnHandle
      * @see com.wzt.aurora.spider.handle.RoomHandle
+     * @see com.wzt.aurora.spider.handle.AutoHandle
      */
     public static class EOneRequest {
         /**
@@ -62,7 +64,7 @@ public class NeuRequest {
         /**
          * <h3>构建校园网下一网通的请求</h3>
          */
-        private Client client = Client.getInstance(Value.ClientCodeValue.NEU_E_ONE_CLIENT);
+        private Client client = Client.getInstance(Value.ClientCode.NEU_E_ONE_CLIENT);
         /**
          * <h3>获得OkHttpClient对象</h3>
          */
@@ -222,6 +224,7 @@ public class NeuRequest {
      * @see com.wzt.aurora.spider.handle.NeuHandle
      * @see com.wzt.aurora.spider.handle.VpnHandle
      * @see com.wzt.aurora.spider.handle.RoomHandle
+     * @see com.wzt.aurora.spider.handle.AutoHandle
      */
     public static class DeanRequest {
         /**
@@ -243,7 +246,7 @@ public class NeuRequest {
         /**
          * <h3>构建校园网下进行教务处访问的请求</h3>
          */
-        private Client client = Client.getInstance(Value.ClientCodeValue.NEU_DEAN_CLIENT);
+        private Client client = Client.getInstance(Value.ClientCode.NEU_DEAN_CLIENT);
         /**
          * <h3>获得OkHttpClient请求对象</h3>
          */

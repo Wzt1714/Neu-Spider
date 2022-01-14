@@ -40,6 +40,7 @@ import java.util.List;
  * @see com.wzt.aurora.spider.handle.NeuHandle
  * @see com.wzt.aurora.spider.handle.VpnHandle
  * @see com.wzt.aurora.spider.handle.RoomHandle
+ * @see com.wzt.aurora.spider.handle.AutoHandle
  */
 public class Cookies {
     /**
@@ -51,6 +52,7 @@ public class Cookies {
      * @see com.wzt.aurora.spider.handle.NeuHandle
      * @see com.wzt.aurora.spider.handle.VpnHandle
      * @see com.wzt.aurora.spider.handle.RoomHandle
+     * @see com.wzt.aurora.spider.handle.AutoHandle
      * @see CookieJar
      * @see CookieDestroy
      */
@@ -149,6 +151,7 @@ public class Cookies {
      * @see com.wzt.aurora.spider.handle.NeuHandle
      * @see com.wzt.aurora.spider.handle.VpnHandle
      * @see com.wzt.aurora.spider.handle.RoomHandle
+     * @see com.wzt.aurora.spider.handle.AutoHandle
      * @see CookieJar
      * @see CookieDestroy
      */
@@ -252,6 +255,7 @@ public class Cookies {
      * @see com.wzt.aurora.spider.handle.NeuHandle
      * @see com.wzt.aurora.spider.handle.VpnHandle
      * @see com.wzt.aurora.spider.handle.RoomHandle
+     * @see com.wzt.aurora.spider.handle.AutoHandle
      * @see CookieJar
      * @see CookieDestroy
      */
@@ -375,6 +379,7 @@ public class Cookies {
      * @see com.wzt.aurora.spider.handle.NeuHandle
      * @see com.wzt.aurora.spider.handle.VpnHandle
      * @see com.wzt.aurora.spider.handle.RoomHandle
+     * @see com.wzt.aurora.spider.handle.AutoHandle
      */
     private interface CookieDestroy {
         public void destroy();

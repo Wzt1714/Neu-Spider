@@ -38,6 +38,7 @@ import java.io.IOException;
  * @see com.wzt.aurora.spider.handle.NeuHandle
  * @see com.wzt.aurora.spider.handle.VpnHandle
  * @see com.wzt.aurora.spider.handle.RoomHandle
+ * @see com.wzt.aurora.spider.handle.AutoHandle
  */
 public class Client {
     /**
@@ -51,36 +52,37 @@ public class Client {
     /**
      * <h3>何种请求对象</h3>
      */
-    private int typeCode = 0x000;
+    private Value.ClientCode typeCode = Value.ClientCode.NULL_CLIENT;
 
     /**
      * Client的构造函数，通过指定参数创建对象,设置为private禁止外部调用
      * <p>参数必须为Value.ClientCodeValue里的值</p>
      *
      * @param typeCode 参数
-     * @see Value.ClientCodeValue
+     * @see Value.ClientCode
      */
-    private Client(int typeCode) {
+    private Client(Value.ClientCode typeCode) {
         this.typeCode = typeCode;
         switch (typeCode) {
-            case Value.ClientCodeValue.NEU_E_ONE_CLIENT:
+            case NEU_E_ONE_CLIENT:
                 okHttpClient = new OkHttpClient.Builder()
                         .followRedirects(false)
                         .cookieJar(Cookies.NeuEOneCookies.getInstance())
                         .build();
                 break;
-            case Value.ClientCodeValue.NEU_DEAN_CLIENT:
+            case NEU_DEAN_CLIENT:
                 okHttpClient = new OkHttpClient.Builder()
                         .followRedirects(false)
                         .cookieJar(Cookies.NeuDeanCookies.getInstance())
                         .build();
                 break;
-            case Value.ClientCodeValue.ROOM_CLIENT:
+            case ROOM_CLIENT:
+            case NET_ENVIRONMENT_CLIENT:
                 okHttpClient = new OkHttpClient.Builder()
                         .followRedirects(false)
                         .build();
                 break;
-            case Value.ClientCodeValue.VPN_E_ONE_CLIENT:
+            case VPN_E_ONE_CLIENT:
                 okHttpClient = new OkHttpClient.Builder()
                         .followRedirects(false)
                         .cookieJar(Cookies.VpnCookies.getInstance())
@@ -96,9 +98,9 @@ public class Client {
      *
      * @param code 参数
      * @return Client实例
-     * @see Value.ClientCodeValue
+     * @see Value.ClientCode
      */
-    public static Client getInstance(int code) {
+    public static Client getInstance(Value.ClientCode code) {
         client = new Client(code);
         return client;
     }

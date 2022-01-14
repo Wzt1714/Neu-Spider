@@ -22,11 +22,16 @@
 
 package com.wzt.aurora.spider.net;
 
-import okhttp3.OkHttpClient;
+import com.wzt.aurora.spider.utils.Utils;
 import com.wzt.aurora.spider.utils.Value;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import java.io.IOException;
 
 /**
- * <h1>RoomRequest-进行必要的数据请求</h1>
+ * <h1>NetEnvironmentRequest-进行网络环境查询的数据请求</h1>
  * <p>尽管可以通过调用com.wzt.aurora.spider.net包中的类和方法进行自定义爬虫，但不建议这么做，可能会引起无法预测的结果，使用爬虫请调用Handle</p>
  *
  * @see com.wzt.aurora.spider.handle.NeuHandle
@@ -34,7 +39,7 @@ import com.wzt.aurora.spider.utils.Value;
  * @see com.wzt.aurora.spider.handle.RoomHandle
  * @see com.wzt.aurora.spider.handle.AutoHandle
  */
-public class RoomRequest {
+public class NetEnvironmentRequest {
     /**
      * <h3>构建必要数据的请求</h3>
      */
@@ -43,30 +48,19 @@ public class RoomRequest {
      * <h3>OkHttpClient对象</h3>
      */
     private OkHttpClient okHttpClient = client.getOkHttpClient();
-
     /**
-     * 获得指定教学楼的教室占用信息的json数据
-     * @param place 必须为以下字符串中的值：
-     * <p>"教","逸","大成","采","机"</p>
-     * @return json字符串
+     * 查询网络请求是否为校园网
      */
-    public String roomJson(String place) {
-        return client.fastGet("http://117.50.172.22:8080/NeuAuroraWebApi/course?place=" + place);
-    }
-
-    /**
-     * 获得时间信息的json数据
-     * @return json字符串
-     */
-    public String dateJson() {
-        return client.fastGet("http://117.50.172.22:8080/NeuAuroraWebApi/date");
-    }
-
-    /**
-     * 获得学期信息的json数据
-     * @return json字符串
-     */
-    public String semesterJson() {
-        return client.fastGet("http://117.50.172.22:8080/NeuAuroraWebApi/semester");
+    public Boolean isNEUNet(){
+        Request request = Utils.ClientUtils.fastBuildRequest("https://webvpn.neu.edu.cn/");
+        try (Response response = okHttpClient.newCall(request).execute()){
+            if (response.code() == 302)
+                return false;
+            else if (response.code() == 403)
+                return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -53,31 +53,34 @@ public class Value {
         dayMap.put("5", "星期六");
         dayMap.put("6", "星期日");
     }
-
     /**
-     * <h1>ClientCodeValue-标记请求值</h1>
+     * <h1>ClientCode-标记请求值</h1>
      */
-    public static class ClientCodeValue {
+    public enum ClientCode{
         /**
          * <h3>无请求的情况</h3>
          */
-        public final static int NULL_CLIENT = 0x000;
+        NULL_CLIENT,
         /**
          * <h3>校园网下请求一网通</h3>
          */
-        public final static int NEU_E_ONE_CLIENT = 0x100;
+        NEU_E_ONE_CLIENT,
         /**
          * <h3>校园网下请求教务处</h3>
          */
-        public final static int NEU_DEAN_CLIENT = 0x101;
+        NEU_DEAN_CLIENT,
         /**
          * <h3>请求一些常用数据和教室占用情况</h3>
          */
-        public final static int ROOM_CLIENT = 0x102;
+        ROOM_CLIENT,
         /**
          * <h3>非校园网情况下的请求</h3>
          */
-        public final static int VPN_E_ONE_CLIENT = 0x103;
+        VPN_E_ONE_CLIENT,
+        /**
+         * <h3>查询网络环境的请求</h3>
+         */
+        NET_ENVIRONMENT_CLIENT;
     }
 
     /**

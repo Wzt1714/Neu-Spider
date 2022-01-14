@@ -26,10 +26,10 @@ dependencies {
     // https://mvnrepository.com/artifact/net.sf.json-lib/json-lib
     implementation 'net.sf.json-lib:json-lib:2.4:jdk15'
     // https://mvnrepository.com/artifact/junit/junit
-//    testImplementation group: 'junit', name: 'junit', version: '4.12'
-//
-//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {
@@ -39,8 +39,7 @@ test {
 jar {
     String someString = ''
     configurations.runtimeClasspath.each {
-//        someString = someString + " lib//"+it.name
-        someString = someString + " "+it.name
+        someString = someString + " lib//"+it.name
     }
     manifest {
 //        attributes 'Main-Class': 'com.xbs.AppMain'
@@ -53,7 +52,7 @@ task clearPj(type:Delete){
 }
 task copyJar(type:Copy){
     from configurations.runtimeClasspath
-    into ('build/libs')
+    into ('build/libs/lib')
 }
 //把JAR复制到目标目录
 task release(type: Copy,dependsOn: [build,copyJar]) {

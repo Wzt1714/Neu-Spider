@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"com.wzt.aurora.spider.data","h":"","u":""},{"l":"com.wzt.aurora.spider.exception","h":"","u":""},{"l":"com.wzt.aurora.spider.handle","h":"","u":""},{"l":"com.wzt.aurora.spider.net","h":"","u":""},{"l":"com.wzt.aurora.spider.utils","h":"","u":""},{"l":"所有程序包","h":"","u":"allpackages-index.html"}]

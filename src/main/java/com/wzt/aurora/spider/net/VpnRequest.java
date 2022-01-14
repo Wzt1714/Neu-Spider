@@ -36,6 +36,7 @@ import java.util.regex.Matcher;
  * @see com.wzt.aurora.spider.handle.NeuHandle
  * @see com.wzt.aurora.spider.handle.VpnHandle
  * @see com.wzt.aurora.spider.handle.RoomHandle
+ * @see com.wzt.aurora.spider.handle.AutoHandle
  */
 public class VpnRequest {
     /**
@@ -57,7 +58,7 @@ public class VpnRequest {
     /**
      * <h3>构建非校园网下Vpn的请求</h3>
      */
-    private Client client = Client.getInstance(Value.ClientCodeValue.VPN_E_ONE_CLIENT);
+    private Client client = Client.getInstance(Value.ClientCode.VPN_E_ONE_CLIENT);
     /**
      * <h3>获得OkHttpClient对象</h3>
      */
@@ -137,6 +138,7 @@ public class VpnRequest {
      * @see com.wzt.aurora.spider.handle.NeuHandle
      * @see com.wzt.aurora.spider.handle.VpnHandle
      * @see com.wzt.aurora.spider.handle.RoomHandle
+     * @see com.wzt.aurora.spider.handle.AutoHandle
      */
     public class EOneRequest {
         /**
@@ -296,6 +298,7 @@ public class VpnRequest {
      * @see com.wzt.aurora.spider.handle.NeuHandle
      * @see com.wzt.aurora.spider.handle.VpnHandle
      * @see com.wzt.aurora.spider.handle.RoomHandle
+     * @see com.wzt.aurora.spider.handle.AutoHandle
      */
     public class DeanRequest {
         /**

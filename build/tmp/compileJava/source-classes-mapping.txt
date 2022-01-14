@@ -3,6 +3,8 @@ com/wzt/aurora/spider/handle/RoomHandle.java
 com/wzt/aurora/spider/data/CourseData.java
  com.wzt.aurora.spider.data.CourseData
  com.wzt.aurora.spider.data.CourseData$ChildCourse
+com/wzt/aurora/spider/net/RoomRequest.java
+ com.wzt.aurora.spider.net.RoomRequest
 com/wzt/aurora/spider/net/VpnRequest.java
  com.wzt.aurora.spider.net.VpnRequest
  com.wzt.aurora.spider.net.VpnRequest$DeanRequest
@@ -44,7 +46,7 @@ com/wzt/aurora/spider/handle/Sleep.java
  com.wzt.aurora.spider.handle.Sleep
 com/wzt/aurora/spider/utils/Value.java
  com.wzt.aurora.spider.utils.Value
- com.wzt.aurora.spider.utils.Value$ClientCodeValue
+ com.wzt.aurora.spider.utils.Value$ClientCode
  com.wzt.aurora.spider.utils.Value$NeuVpnHandleValue
  com.wzt.aurora.spider.utils.Value$PatternValue
  com.wzt.aurora.spider.utils.Value$RequestHeadsValue
@@ -63,6 +65,7 @@ com/wzt/aurora/spider/data/SemesterData.java
  com.wzt.aurora.spider.data.SemesterData$ChildSemester
 com/wzt/aurora/spider/net/Client.java
  com.wzt.aurora.spider.net.Client
+ com.wzt.aurora.spider.net.Client$1
 com/wzt/aurora/spider/data/ExamData.java
  com.wzt.aurora.spider.data.ExamData
  com.wzt.aurora.spider.data.ExamData$ChildExam
@@ -70,5 +73,9 @@ com/wzt/aurora/spider/handle/NeuHandle.java
  com.wzt.aurora.spider.handle.NeuHandle
 com/wzt/aurora/spider/exception/AuroraException.java
  com.wzt.aurora.spider.exception.AuroraException
-com/wzt/aurora/spider/net/RoomRequest.java
- com.wzt.aurora.spider.net.RoomRequest
+com/wzt/aurora/spider/handle/AutoHandle.java
+ com.wzt.aurora.spider.handle.AutoHandle
+com/wzt/aurora/spider/net/NetEnvironmentRequest.java
+ com.wzt.aurora.spider.net.NetEnvironmentRequest
+Main.java
+ Main
