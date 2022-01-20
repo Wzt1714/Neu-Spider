@@ -156,7 +156,7 @@ public class Main implements Value.RoomHandleValue, Value.NeuVpnHandleValue{
         /*
          * 这两个字符串设置为学号密码
          */
-        String id = "20194148", pass = "wangzetong1115";
+        String id = "你的学号", pass = "你的密码";
         /*
          * RoomHandle对象，构造器参数为多个时请使用 | 分割，可选参数有:
          * HE_SHI_LI_OCCUPY             何世礼教学馆今日教室占用情况
