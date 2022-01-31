@@ -45,16 +45,21 @@ public class SemesterData implements AuroraData {
      * @see SemesterData
      */
     public static SemesterData inverse(String json) {
-        JSONArray array = JSONArray.fromObject(json);
-        List<ChildSemester> semesterList = new ArrayList<>();
-        for (Object o : array) {
-            String semesterName = ((JSONObject) o).getString("semesterName");
-            String semesterId = ((JSONObject) o).getString("semesterId");
-            ChildSemester childSemester = new ChildSemester(semesterName, semesterId);
-            semesterList.add(childSemester);
+        try {
+            JSONArray array = JSONArray.fromObject(json);
+            List<ChildSemester> semesterList = new ArrayList<>();
+            for (Object o : array) {
+                String semesterName = ((JSONObject) o).getString("semesterName");
+                String semesterId = ((JSONObject) o).getString("semesterId");
+                ChildSemester childSemester = new ChildSemester(semesterName, semesterId);
+                semesterList.add(childSemester);
+            }
+            return new SemesterData(semesterList);
+        } catch (Exception e) {
+            return null;
         }
-        return new SemesterData(semesterList);
     }
+
     /**
      * <h1>ChildSemester-用于存储单个学期数据</h1>
      * <p>同样实现了AuroraData接口，为SemesterData的静态内部类</p>
@@ -78,7 +83,7 @@ public class SemesterData implements AuroraData {
          * ChildSemester构造器，用于创建单个学期数据
          *
          * @param semesterName 学期名
-         * @param semesterId 学期id
+         * @param semesterId   学期id
          */
         public ChildSemester(String semesterName, String semesterId) {
             this.semesterName = semesterName;

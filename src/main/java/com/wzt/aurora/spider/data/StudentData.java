@@ -39,11 +39,15 @@ public class StudentData implements AuroraData {
      * @see StudentData
      */
     public static StudentData inverse(String json) {
-        JSONObject object = JSONObject.fromObject(json);
-        String academicDegree = object.getString("academicDegree");
-        String college = object.getString("college");
-        String name = object.getString("name");
-        return new StudentData(academicDegree, college, name);
+        try {
+            JSONObject object = JSONObject.fromObject(json);
+            String academicDegree = object.getString("academicDegree");
+            String college = object.getString("college");
+            String name = object.getString("name");
+            return new StudentData(academicDegree, college, name);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -64,8 +68,8 @@ public class StudentData implements AuroraData {
      * StudentData构造器，用于创建学生数据
      *
      * @param academicDegree 学位
-     * @param college 学院
-     * @param name 姓名
+     * @param college        学院
+     * @param name           姓名
      */
     public StudentData(String academicDegree, String college, String name) {
         this.academicDegree = academicDegree;

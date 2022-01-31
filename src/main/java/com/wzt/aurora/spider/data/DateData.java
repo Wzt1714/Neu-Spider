@@ -64,14 +64,18 @@ public class DateData implements AuroraData {
      * @see DateData
      */
     public static DateData inverse(String json) {
-        JSONObject object = JSONObject.fromObject(json);
-        int startYear = object.getInt("startYear");
-        int startMonth = object.getInt("startMonth");
-        int startDay = object.getInt("startDay");
-        int nowWeekNum = object.getInt("nowWeekNum");
-        String nowDayNum = object.getString("nowDayNum");
-        int nowSemesterId = object.getInt("nowSemesterId");
-        return new DateData(startYear, startMonth, startDay, nowWeekNum, nowDayNum, nowSemesterId);
+        try {
+            JSONObject object = JSONObject.fromObject(json);
+            int startYear = object.getInt("startYear");
+            int startMonth = object.getInt("startMonth");
+            int startDay = object.getInt("startDay");
+            int nowWeekNum = object.getInt("nowWeekNum");
+            String nowDayNum = object.getString("nowDayNum");
+            int nowSemesterId = object.getInt("nowSemesterId");
+            return new DateData(startYear, startMonth, startDay, nowWeekNum, nowDayNum, nowSemesterId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

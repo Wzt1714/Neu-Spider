@@ -41,7 +41,7 @@ public class Pair<A, B> {
     /**
      * Pair的构造方法，用于创建数据对
      *
-     * @param first 数据A
+     * @param first  数据A
      * @param second 数据B
      */
     public Pair(A first, B second) {

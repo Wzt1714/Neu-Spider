@@ -46,20 +46,24 @@ public class RoomData implements AuroraData {
      * @see RoomData
      */
     public static RoomData inverse(String json) {
-        List<ChildRoom> roomList = new ArrayList<>();
-        JSONArray array = JSONArray.fromObject(json);
-        for (Object o : array) {
-            String courseName = ((JSONObject) o).getString("courseName");
-            String courseClass = ((JSONObject) o).getString("courseClass");
-            int[] courseWeek = Utils.StandardUtils.str2array(((JSONObject) o).getString("courseWeek"));
-            String courseDay = ((JSONObject) o).getString("courseDay");
-            int[] courseTime = Utils.StandardUtils.str2array(((JSONObject) o).getString("courseTime"));
-            String courseTeacher = ((JSONObject) o).getString("courseTeacher");
-            String coursePlace = ((JSONObject) o).getString("coursePlace");
-            ChildRoom room = new ChildRoom(courseName, courseClass, courseWeek, courseDay, courseTime, courseTeacher, coursePlace);
-            roomList.add(room);
+        try {
+            List<ChildRoom> roomList = new ArrayList<>();
+            JSONArray array = JSONArray.fromObject(json);
+            for (Object o : array) {
+                String courseName = ((JSONObject) o).getString("courseName");
+                String courseClass = ((JSONObject) o).getString("courseClass");
+                int[] courseWeek = Utils.StandardUtils.str2array(((JSONObject) o).getString("courseWeek"));
+                String courseDay = ((JSONObject) o).getString("courseDay");
+                int[] courseTime = Utils.StandardUtils.str2array(((JSONObject) o).getString("courseTime"));
+                String courseTeacher = ((JSONObject) o).getString("courseTeacher");
+                String coursePlace = ((JSONObject) o).getString("coursePlace");
+                ChildRoom room = new ChildRoom(courseName, courseClass, courseWeek, courseDay, courseTime, courseTeacher, coursePlace);
+                roomList.add(room);
+            }
+            return new RoomData(roomList);
+        } catch (Exception e) {
+            return null;
         }
-        return new RoomData(roomList);
     }
 
     /**

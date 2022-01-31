@@ -29,6 +29,7 @@ package com.wzt.aurora.spider.data;
 public interface AuroraData {
     /**
      * 将对象数据转化为json字符串
+     *
      * @return 转化完成的json字符串
      */
     String toJson();

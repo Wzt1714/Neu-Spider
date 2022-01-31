@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -247,7 +248,7 @@ public class Utils {
                         td.remove(0);
                         td.remove(7);
                         td.remove(7);
-                        BookData.ChildBook bookData = new BookData.ChildBook(td.get(0).html(), td.get(1).selectFirst("a").html(), td.get(2).html(), td.get(6).html(), td.get(3).html(), td.get(4).html(), td.get(5).html());
+                        BookData.ChildBook bookData = new BookData.ChildBook(td.get(0).html(), td.get(1).selectFirst("a").html(), td.get(2).html(), td.get(6).html(), td.get(3).html(), td.get(4).html().replace("<br>", "无罚款"), td.get(5).html());
                         borrowBookData.add(bookData);
                     }
                 }
@@ -322,6 +323,26 @@ public class Utils {
             }
             return new SemesterData(semesterList);
         }
+
+        /**
+         * 将二进制数组转化为SchoolScheduleData对象
+         *
+         * @param data 二进制数组
+         * @return SchoolScheduleData对象
+         */
+        public static SchoolScheduleData byte2schedule(byte[] data) {
+            return new SchoolScheduleData(data);
+        }
+
+        /**
+         * 将json数据转换为RoomListData对象
+         *
+         * @param json json数据
+         * @return RoomListData对象
+         */
+        public static RoomListData json2roomList(String json) {
+            return RoomListData.inverse(json);
+        }
     }
 
     /**
@@ -378,9 +399,33 @@ public class Utils {
         public static int[] str2array(String string) {
             int[] result = new int[string.length()];
             for (int i = 0; i < result.length; i++) {
-                result[i] = Integer.valueOf(string.charAt(i));
+                result[i] = Integer.valueOf(string.charAt(i)) - 48;
             }
             return result;
+        }
+
+        /**
+         * 将base64字符串转换为二进制数组
+         *
+         * @param base64Str base64字符串
+         * @return 二进制数组
+         */
+        public static byte[] base64String2ByteFun(String base64Str) {
+
+            return Base64.getDecoder().decode(base64Str);
+
+        }
+
+        /**
+         * 将二进制数据转换为base64字符串
+         *
+         * @param b 二进制数据
+         * @return base64字符串
+         */
+        public static String byte2Base64StringFun(byte[] b) {
+
+            return Base64.getEncoder().encodeToString(b);
+
         }
     }
 

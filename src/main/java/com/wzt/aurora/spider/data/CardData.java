@@ -64,8 +64,12 @@ public class CardData implements AuroraData {
      * @see CardData
      */
     public static CardData inverse(String json) {
-        JSONObject object = JSONObject.fromObject(json);
-        String balance = object.getString("balance");
-        return new CardData(balance);
+        try {
+            JSONObject object = JSONObject.fromObject(json);
+            String balance = object.getString("balance");
+            return new CardData(balance);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

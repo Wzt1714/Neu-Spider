@@ -45,20 +45,24 @@ public class ExamData implements AuroraData {
      * @see ExamData
      */
     public static ExamData inverse(String json) {
-        JSONArray array = JSONArray.fromObject(json);
-        List<ExamData.ChildExam> examList = new ArrayList<>();
-        for (Object o : array) {
-            String courseName = ((JSONObject) o).getString("courseName");
-            String examType = ((JSONObject) o).getString("examType");
-            String examDate = ((JSONObject) o).getString("examDate");
-            String examTime = ((JSONObject) o).getString("examTime");
-            String examPlace = ((JSONObject) o).getString("examPlace");
-            String examSeatId = ((JSONObject) o).getString("examSeatId");
-            String examStatus = ((JSONObject) o).getString("examStatus");
-            ChildExam exam = new ChildExam(courseName, examType, examDate, examTime, examPlace, examSeatId, examStatus);
-            examList.add(exam);
+        try {
+            JSONArray array = JSONArray.fromObject(json);
+            List<ExamData.ChildExam> examList = new ArrayList<>();
+            for (Object o : array) {
+                String courseName = ((JSONObject) o).getString("courseName");
+                String examType = ((JSONObject) o).getString("examType");
+                String examDate = ((JSONObject) o).getString("examDate");
+                String examTime = ((JSONObject) o).getString("examTime");
+                String examPlace = ((JSONObject) o).getString("examPlace");
+                String examSeatId = ((JSONObject) o).getString("examSeatId");
+                String examStatus = ((JSONObject) o).getString("examStatus");
+                ChildExam exam = new ChildExam(courseName, examType, examDate, examTime, examPlace, examSeatId, examStatus);
+                examList.add(exam);
+            }
+            return new ExamData(examList);
+        } catch (Exception e){
+            return null;
         }
-        return new ExamData(examList);
     }
 
     /**

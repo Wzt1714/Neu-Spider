@@ -36,5 +36,5 @@ public abstract class Handle {
      *
      * @return 返回字符串和相应数据集
      */
-    public abstract HashMap<Integer, AuroraData> getData();
+    public abstract HashMap<Enum, AuroraData> getData();
 }

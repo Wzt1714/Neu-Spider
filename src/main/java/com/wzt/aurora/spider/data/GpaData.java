@@ -45,24 +45,29 @@ public class GpaData implements AuroraData {
      * @see GpaData
      */
     public static GpaData inverse(String json) {
-        JSONObject object = JSONObject.fromObject(json);
-        String gpaSum = object.getString("gpaSum");
-        List<GpaData.ChildGpa> gpaList = new ArrayList<>();
-        JSONArray array = object.getJSONArray("list");
-        for (Object o : array) {
-            String courseName = ((JSONObject) o).getString("courseName");
-            String courseType = ((JSONObject) o).getString("courseType");
-            String courseCredit = ((JSONObject) o).getString("courseCredit");
-            String usualResults = ((JSONObject) o).getString("usualResults");
-            String midTermResults = ((JSONObject) o).getString("midTermResults");
-            String endTermResults = ((JSONObject) o).getString("endTermResults");
-            String generalResults = ((JSONObject) o).getString("generalResults");
-            String GPA = ((JSONObject) o).getString("GPA");
-            ChildGpa childGpa = new ChildGpa(courseName, courseType, courseCredit, usualResults, midTermResults, endTermResults, generalResults, GPA);
-            gpaList.add(childGpa);
+        try {
+            JSONObject object = JSONObject.fromObject(json);
+            String gpaSum = object.getString("gpaSum");
+            List<GpaData.ChildGpa> gpaList = new ArrayList<>();
+            JSONArray array = object.getJSONArray("list");
+            for (Object o : array) {
+                String courseName = ((JSONObject) o).getString("courseName");
+                String courseType = ((JSONObject) o).getString("courseType");
+                String courseCredit = ((JSONObject) o).getString("courseCredit");
+                String usualResults = ((JSONObject) o).getString("usualResults");
+                String midTermResults = ((JSONObject) o).getString("midTermResults");
+                String endTermResults = ((JSONObject) o).getString("endTermResults");
+                String generalResults = ((JSONObject) o).getString("generalResults");
+                String GPA = ((JSONObject) o).getString("GPA");
+                ChildGpa childGpa = new ChildGpa(courseName, courseType, courseCredit, usualResults, midTermResults, endTermResults, generalResults, GPA);
+                gpaList.add(childGpa);
+            }
+            return new GpaData(gpaSum, gpaList);
+        } catch (Exception e) {
+            return null;
         }
-        return new GpaData(gpaSum, gpaList);
     }
+
     /**
      * <h1>ChildGpa-用于存储单门课程绩点数据</h1>
      * <p>同样实现了AuroraData接口，为GpaData的静态内部类</p>
@@ -124,14 +129,14 @@ public class GpaData implements AuroraData {
         /**
          * ChildGpa构造器，用于创建单门绩点对象
          *
-         * @param courseName 课程名
-         * @param courseType 课程类型
-         * @param courseCredit 课程学分
-         * @param usualResults 平时成绩
+         * @param courseName     课程名
+         * @param courseType     课程类型
+         * @param courseCredit   课程学分
+         * @param usualResults   平时成绩
          * @param midTermResults 期中成绩
          * @param endTermResults 期末成绩
          * @param generalResults 总评成绩
-         * @param GPA 单门绩点
+         * @param GPA            单门绩点
          */
         public ChildGpa(String courseName, String courseType, String courseCredit, String usualResults, String midTermResults, String endTermResults, String generalResults, String GPA) {
             this.courseName = courseName;
@@ -188,7 +193,8 @@ public class GpaData implements AuroraData {
 
     /**
      * GpaData构造器，用于创建绩点对象
-     * @param gpaSum 总平均绩点
+     *
+     * @param gpaSum  总平均绩点
      * @param gpaList 单门绩点列表
      */
     public GpaData(String gpaSum, List<ChildGpa> gpaList) {

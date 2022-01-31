@@ -175,19 +175,23 @@ public class BookData implements AuroraData {
      * @see BookData
      */
     public static BookData inverse(String json) {
-        JSONArray array = JSONArray.fromObject(json);
-        List<BookData.ChildBook> bookList = new ArrayList<>();
-        for (Object o : array) {
-            String author = ((JSONObject) o).getString("author");
-            String bookName = ((JSONObject) o).getString("bookName");
-            String publishYear = ((JSONObject) o).getString("publishYear");
-            String bookId = ((JSONObject) o).getString("bookId");
-            String returnDate = ((JSONObject) o).getString("returnDate");
-            String impose = ((JSONObject) o).getString("impose");
-            String bookPlace = ((JSONObject) o).getString("bookPlace");
-            BookData.ChildBook childBook = new ChildBook(author, bookName, publishYear, bookId, returnDate, impose, bookPlace);
-            bookList.add(childBook);
+        try {
+            JSONArray array = JSONArray.fromObject(json);
+            List<BookData.ChildBook> bookList = new ArrayList<>();
+            for (Object o : array) {
+                String author = ((JSONObject) o).getString("author");
+                String bookName = ((JSONObject) o).getString("bookName");
+                String publishYear = ((JSONObject) o).getString("publishYear");
+                String bookId = ((JSONObject) o).getString("bookId");
+                String returnDate = ((JSONObject) o).getString("returnDate");
+                String impose = ((JSONObject) o).getString("impose");
+                String bookPlace = ((JSONObject) o).getString("bookPlace");
+                BookData.ChildBook childBook = new ChildBook(author, bookName, publishYear, bookId, returnDate, impose, bookPlace);
+                bookList.add(childBook);
+            }
+            return new BookData(bookList);
+        }catch (Exception e){
+            return null;
         }
-        return new BookData(bookList);
     }
 }

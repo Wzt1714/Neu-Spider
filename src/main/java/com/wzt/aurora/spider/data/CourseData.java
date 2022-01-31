@@ -73,19 +73,23 @@ public class CourseData implements AuroraData {
      * @see CourseData
      */
     public static CourseData inverse(String json) {
-        JSONArray array = JSONArray.fromObject(json);
-        List<CourseData.ChildCourse> courseList = new ArrayList<>();
-        for (Object o : array) {
-            String courseName = ((JSONObject) o).getString("courseName");
-            String coursePlace = ((JSONObject) o).getString("coursePlace");
-            String teacherName = ((JSONObject) o).getString("teacherName");
-            String timeData = ((JSONObject) o).getString("timeData");
-            String dayData = ((JSONObject) o).getString("dayData");
-            String weekData = ((JSONObject) o).getString("weekData");
-            CourseData.ChildCourse childCourse = new ChildCourse(courseName, coursePlace, teacherName, timeData, dayData, weekData);
-            courseList.add(childCourse);
+        try {
+            JSONArray array = JSONArray.fromObject(json);
+            List<CourseData.ChildCourse> courseList = new ArrayList<>();
+            for (Object o : array) {
+                String courseName = ((JSONObject) o).getString("courseName");
+                String coursePlace = ((JSONObject) o).getString("coursePlace");
+                String teacherName = ((JSONObject) o).getString("teacherName");
+                String timeData = ((JSONObject) o).getString("timeData");
+                String dayData = ((JSONObject) o).getString("dayData");
+                String weekData = ((JSONObject) o).getString("weekData");
+                CourseData.ChildCourse childCourse = new ChildCourse(courseName, coursePlace, teacherName, timeData, dayData, weekData);
+                courseList.add(childCourse);
+            }
+            return new CourseData(courseList);
+        } catch (Exception e) {
+            return null;
         }
-        return new CourseData(courseList);
     }
 
     /**
@@ -135,12 +139,12 @@ public class CourseData implements AuroraData {
         /**
          * ChildCourse构造器，用于创建单个课程数据
          *
-         * @param courseName 课程名
+         * @param courseName  课程名
          * @param coursePlace 上课地点
          * @param teacherName 教师名
-         * @param timeData 节次数据
-         * @param dayData 星期几
-         * @param weekData 上课周数据
+         * @param timeData    节次数据
+         * @param dayData     星期几
+         * @param weekData    上课周数据
          */
         public ChildCourse(String courseName, String coursePlace, String teacherName, String timeData, String dayData, String weekData) {
             this.courseName = courseName;

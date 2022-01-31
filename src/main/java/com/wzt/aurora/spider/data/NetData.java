@@ -26,7 +26,7 @@ import net.sf.json.JSONObject;
 
 /**
  * <h1>NetData-用于存储校园网信息</h1>
- * <p>此类与其内部类均实现了AuroraData接口以完成数据的json化和反json化</p>
+ * <p>此类实现了AuroraData接口以完成数据的json化和反json化</p>
  *
  * @see AuroraData
  */
@@ -76,9 +76,13 @@ public class NetData implements AuroraData {
      * @see NetData
      */
     public static NetData inverse(String json) {
-        JSONObject object = JSONObject.fromObject(json);
-        String balance = object.getString("balance");
-        String usedData = object.getString("usedData");
-        return new NetData(balance, usedData);
+        try {
+            JSONObject object = JSONObject.fromObject(json);
+            String balance = object.getString("balance");
+            String usedData = object.getString("usedData");
+            return new NetData(balance, usedData);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

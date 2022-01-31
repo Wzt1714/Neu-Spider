@@ -192,7 +192,7 @@ public class VpnRequest {
             String html = client.fastGet(location);
             Matcher matcher = Value.PatternValue.BORROW_BOOK_URL_VPN.matcher(html);
             if (matcher.find()) {
-                html = client.fastGet(matcher.group(1).replace("&amp;", "&"));
+                html = client.fastGet(matcher.group(1).replace("&amp;", "&").replace("http://202.118.8.7:8991", "https://webvpn.neu.edu.cn/http-8991/77726476706e69737468656265737421a2a713d27661301e2646de"));
             }
             return html;
         }

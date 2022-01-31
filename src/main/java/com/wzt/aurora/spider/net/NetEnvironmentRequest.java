@@ -48,12 +48,13 @@ public class NetEnvironmentRequest {
      * <h3>OkHttpClient对象</h3>
      */
     private OkHttpClient okHttpClient = client.getOkHttpClient();
+
     /**
      * 查询网络请求是否为校园网
      */
-    public Boolean isNEUNet(){
+    public Boolean isNEUNet() {
         Request request = Utils.ClientUtils.fastBuildRequest("https://webvpn.neu.edu.cn/");
-        try (Response response = okHttpClient.newCall(request).execute()){
+        try (Response response = okHttpClient.newCall(request).execute()) {
             if (response.code() == 302)
                 return false;
             else if (response.code() == 403)

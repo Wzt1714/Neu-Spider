@@ -22,15 +22,16 @@
 
 package com.wzt.aurora.spider.handle;
 
-import com.wzt.aurora.spider.data.AuroraData;
-import com.wzt.aurora.spider.data.DateData;
-import com.wzt.aurora.spider.data.RoomData;
-import com.wzt.aurora.spider.data.SemesterData;
+import com.wzt.aurora.spider.data.*;
 import com.wzt.aurora.spider.utils.Utils;
 import com.wzt.aurora.spider.net.RoomRequest;
 import com.wzt.aurora.spider.utils.Value;
 
+import java.util.EnumSet;
 import java.util.HashMap;
+
+import static com.wzt.aurora.spider.utils.Value.RoomHandleValue.*;
+
 /**
  * <h1>RoomHandle-用于进行必须数据的读取和占用教室情况的查询</h1>
  * <p>继承自Handle抽象类，实现了Value.RoomHandleValue接口以调用其中的已定义常量</p>
@@ -38,7 +39,7 @@ import java.util.HashMap;
  * @see Handle
  * @see Value.RoomHandleValue
  */
-public class RoomHandle extends Handle implements Value.RoomHandleValue {
+public class RoomHandle extends Handle {
     /**
      * <h3>请求数据</h3>
      * <p>具体请求数据请翻阅Value.RoomHandleValue，当需要获得多个数据时，请将不同参数使用|分开</p>
@@ -46,7 +47,7 @@ public class RoomHandle extends Handle implements Value.RoomHandleValue {
      *
      * @see Value.RoomHandleValue
      */
-    private int requestData;
+    private int requestData = 0;
     /**
      * <h3>用于进行服务器的数据请求</h3>
      * <p>虽然用户可以通过RoomRequest进行手动请求，但这是一种强烈不建议的行为，
@@ -117,46 +118,115 @@ public class RoomHandle extends Handle implements Value.RoomHandleValue {
      *           <td>|</td>
      *           <td>SemesterData</td>
      *       </tr>
+     *       <tr>
+     *           <td>SCHOOL_SCHEDULE</td>
+     *           <td>|</td>
+     *           <td>校历数据</td>
+     *           <td>|</td>
+     *           <td>SchoolScheduleData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>HE_SHI_LI_LIST</td>
+     *           <td>|</td>
+     *           <td>何世礼可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>YI_FU_LIST</td>
+     *           <td>|</td>
+     *           <td>逸夫楼可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>DA_CHENG_LIST</td>
+     *           <td>|</td>
+     *           <td>大成教学馆可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>CAI_KUANG_LIST</td>
+     *           <td>|</td>
+     *           <td>采矿馆可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>JI_DIAN_LIST</td>
+     *           <td>|</td>
+     *           <td>机电馆可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
      *   </tbody>
      * </table>
      * <br>
+     *
      * @param requestData 请求数据
      */
-    public RoomHandle(int requestData) {
-        this.requestData = requestData;
+    public RoomHandle(EnumSet<Value.RoomHandleValue> requestData) {
+        for (Value.RoomHandleValue roomHandleValue : requestData) {
+            this.requestData = this.requestData | roomHandleValue.getId();
+        }
         request = new RoomRequest();
     }
 
     @Override
-    public HashMap<Integer, AuroraData> getData() {
-        HashMap<Integer, AuroraData> dataHashMap = new HashMap<>();
-        if ((requestData & HE_SHI_LI_OCCUPY) == HE_SHI_LI_OCCUPY) {
+    public HashMap<Enum, AuroraData> getData() {
+        HashMap<Enum, AuroraData> dataHashMap = new HashMap<>();
+        if ((requestData & HE_SHI_LI_OCCUPY.getId()) == HE_SHI_LI_OCCUPY.getId()) {
             RoomData data = Utils.DataTransformUtils.json2room(request.roomJson("教"));
             dataHashMap.put(HE_SHI_LI_OCCUPY, data);
         }
-        if ((requestData & YI_FU_OCCUPY) == YI_FU_OCCUPY) {
+        if ((requestData & YI_FU_OCCUPY.getId()) == YI_FU_OCCUPY.getId()) {
             RoomData data = Utils.DataTransformUtils.json2room(request.roomJson("逸"));
             dataHashMap.put(YI_FU_OCCUPY, data);
         }
-        if ((requestData & DA_CHENG_OCCUPY) == DA_CHENG_OCCUPY) {
+        if ((requestData & DA_CHENG_OCCUPY.getId()) == DA_CHENG_OCCUPY.getId()) {
             RoomData data = Utils.DataTransformUtils.json2room(request.roomJson("大成"));
             dataHashMap.put(DA_CHENG_OCCUPY, data);
         }
-        if ((requestData & CAI_KUANG_OCCUPY) == CAI_KUANG_OCCUPY) {
+        if ((requestData & CAI_KUANG_OCCUPY.getId()) == CAI_KUANG_OCCUPY.getId()) {
             RoomData data = Utils.DataTransformUtils.json2room(request.roomJson("采"));
             dataHashMap.put(CAI_KUANG_OCCUPY, data);
         }
-        if ((requestData & JI_DIAN_OCCUPY) == JI_DIAN_OCCUPY) {
+        if ((requestData & JI_DIAN_OCCUPY.getId()) == JI_DIAN_OCCUPY.getId()) {
             RoomData data = Utils.DataTransformUtils.json2room(request.roomJson("机"));
             dataHashMap.put(JI_DIAN_OCCUPY, data);
         }
-        if ((requestData & DATE_DATA) == DATE_DATA) {
+        if ((requestData & DATE_DATA.getId()) == DATE_DATA.getId()) {
             DateData data = Utils.DataTransformUtils.json2date(request.dateJson());
             dataHashMap.put(DATE_DATA, data);
         }
-        if ((requestData & SEMESTER_DATA) == SEMESTER_DATA) {
+        if ((requestData & SEMESTER_DATA.getId()) == SEMESTER_DATA.getId()) {
             SemesterData data = Utils.DataTransformUtils.json2semester(request.semesterJson());
             dataHashMap.put(SEMESTER_DATA, data);
+        }
+        if ((requestData & SCHOOL_SCHEDULE.getId()) == SCHOOL_SCHEDULE.getId()) {
+            SchoolScheduleData data = Utils.DataTransformUtils.byte2schedule(request.schedule());
+            dataHashMap.put(SCHOOL_SCHEDULE, data);
+        }
+        if ((requestData & HE_SHI_LI_LIST.getId()) == HE_SHI_LI_LIST.getId()) {
+            RoomListData data = Utils.DataTransformUtils.json2roomList(request.roomListJson("教"));
+            dataHashMap.put(HE_SHI_LI_LIST, data);
+        }
+        if ((requestData & YI_FU_LIST.getId()) == YI_FU_LIST.getId()) {
+            RoomListData data = Utils.DataTransformUtils.json2roomList(request.roomListJson("逸"));
+            dataHashMap.put(YI_FU_LIST, data);
+        }
+        if ((requestData & DA_CHENG_LIST.getId()) == DA_CHENG_LIST.getId()) {
+            RoomListData data = Utils.DataTransformUtils.json2roomList(request.roomListJson("大成"));
+            dataHashMap.put(DA_CHENG_LIST, data);
+        }
+        if ((requestData & CAI_KUANG_LIST.getId()) == CAI_KUANG_LIST.getId()) {
+            RoomListData data = Utils.DataTransformUtils.json2roomList(request.roomListJson("采"));
+            dataHashMap.put(CAI_KUANG_LIST, data);
+        }
+        if ((requestData & JI_DIAN_LIST.getId()) == JI_DIAN_LIST.getId()) {
+            RoomListData data = Utils.DataTransformUtils.json2roomList(request.roomListJson("机"));
+            dataHashMap.put(JI_DIAN_LIST, data);
         }
         return dataHashMap;
     }

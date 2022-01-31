@@ -29,8 +29,11 @@ import com.wzt.aurora.spider.exception.LoginException;
 import com.wzt.aurora.spider.net.NeuRequest;
 import com.wzt.aurora.spider.utils.Value;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.wzt.aurora.spider.utils.Value.NeuVpnHandleValue.*;
 
 /**
  * <h1>NeuHandle-校园网环境下的数据获取器</h1>
@@ -39,7 +42,7 @@ import java.util.List;
  * @see Handle
  * @see Value.NeuVpnHandleValue
  */
-public class NeuHandle extends Handle implements Value.NeuVpnHandleValue {
+public class NeuHandle extends Handle {
     /**
      * <h3>学号</h3>
      */
@@ -74,7 +77,7 @@ public class NeuHandle extends Handle implements Value.NeuVpnHandleValue {
      *
      * @see Value.NeuVpnHandleValue
      */
-    private int requestData;
+    private int requestData = 0;
     /**
      * <h3>用于进行一网通界面的数据请求</h3>
      * <p>虽然用户可以通过NeuRequest.EOneRequest进行手动请求，但这是一种强烈不建议的行为，
@@ -162,33 +165,37 @@ public class NeuHandle extends Handle implements Value.NeuVpnHandleValue {
      *   </tbody>
      * </table>
      * <br>
+     *
      * @param id          学号
      * @param pass        密码
      * @param semesterId  学期id
      * @param requestData 请求数据，多个数据请使用|隔开
      * @param sleep       函数式接口，需要用户自己实现指定平台的休眠方法
      */
-    public NeuHandle(String id, String pass, String semesterId, int requestData, Sleep sleep) {
+    public NeuHandle(String id, String pass, String semesterId, EnumSet<Value.NeuVpnHandleValue> requestData, Sleep sleep) {
         this.id = id;
         this.pass = pass;
         this.semesterId = semesterId;
-        this.requestData = requestData;
+
+        for (Value.NeuVpnHandleValue vpnHandleValue : requestData) {
+            this.requestData = this.requestData | vpnHandleValue.getId();
+        }
         this.sleep = sleep;
     }
 
     @Override
-    public HashMap<Integer, AuroraData> getData() {
-        if ((requestData & (STUDENT_DATA | CARD_DATA | NET_DATA | LIBRARY_BOOK)) == 0)
+    public HashMap<Enum, AuroraData> getData() {
+        if ((requestData & (STUDENT_DATA.getId() | CARD_DATA.getId() | NET_DATA.getId() | LIBRARY_BOOK.getId())) == 0)
             deanRequest = new NeuRequest.DeanRequest(id, pass, semesterId);
-        else if ((requestData & (COURSE_TABLE | GPA_DATA | EXAM_DATA)) == 0)
+        else if ((requestData & (COURSE_TABLE.getId() | GPA_DATA.getId() | EXAM_DATA.getId())) == 0)
             eOneRequest = new NeuRequest.EOneRequest(id, pass);
         else {
             eOneRequest = new NeuRequest.EOneRequest(id, pass);
             deanRequest = new NeuRequest.DeanRequest(id, pass, semesterId);
         }
-        HashMap<Integer, AuroraData> dataHashMap = new HashMap<>();
+        HashMap<Enum, AuroraData> dataHashMap = new HashMap<>();
         if (deanRequest != null) {
-            if ((requestData & COURSE_TABLE) == COURSE_TABLE) {
+            if ((requestData & COURSE_TABLE.getId()) == COURSE_TABLE.getId()) {
                 if (deanRequest.isLogin()) {
                     String html = deanRequest.courseTableHtml();
 //                    Utils.StandardUtils.dataPrint(html);
@@ -198,7 +205,7 @@ public class NeuHandle extends Handle implements Value.NeuVpnHandleValue {
                 } else
                     throw new LoginException("教务处");
             }
-            if ((requestData & GPA_DATA) == GPA_DATA) {
+            if ((requestData & GPA_DATA.getId()) == GPA_DATA.getId()) {
                 if (deanRequest.isLogin()) {
                     String html = deanRequest.gpaHtml();
 //                    Utils.StandardUtils.dataPrint(html);
@@ -208,7 +215,7 @@ public class NeuHandle extends Handle implements Value.NeuVpnHandleValue {
                 } else
                     throw new LoginException("教务处");
             }
-            if ((requestData & EXAM_DATA) == EXAM_DATA) {
+            if ((requestData & EXAM_DATA.getId()) == EXAM_DATA.getId()) {
                 if (deanRequest.isLogin()) {
                     String html = deanRequest.examListHtml();
 //                    Utils.StandardUtils.dataPrint(html);
@@ -229,7 +236,7 @@ public class NeuHandle extends Handle implements Value.NeuVpnHandleValue {
         }
         Cookies.NeuDeanCookies.getInstance().destroy();
         if (eOneRequest != null) {
-            if ((requestData & STUDENT_DATA) == STUDENT_DATA) {
+            if ((requestData & STUDENT_DATA.getId()) == STUDENT_DATA.getId()) {
                 if (eOneRequest.isLogin()) {
                     String json = eOneRequest.infoJson();
 //                    Utils.StandardUtils.dataPrint(json);
@@ -239,7 +246,7 @@ public class NeuHandle extends Handle implements Value.NeuVpnHandleValue {
                 } else
                     throw new LoginException("一网通");
             }
-            if ((requestData & NET_DATA) == NET_DATA) {
+            if ((requestData & NET_DATA.getId()) == NET_DATA.getId()) {
                 if (eOneRequest.isLogin()) {
                     String json = eOneRequest.networkJson();
 //                    Utils.StandardUtils.dataPrint(json);
@@ -249,7 +256,7 @@ public class NeuHandle extends Handle implements Value.NeuVpnHandleValue {
                 } else
                     throw new LoginException("一网通");
             }
-            if ((requestData & CARD_DATA) == CARD_DATA) {
+            if ((requestData & CARD_DATA.getId()) == CARD_DATA.getId()) {
                 if (eOneRequest.isLogin()) {
                     String json = eOneRequest.cardJson();
 //                    Utils.StandardUtils.dataPrint(json);
@@ -259,7 +266,7 @@ public class NeuHandle extends Handle implements Value.NeuVpnHandleValue {
                 } else
                     throw new LoginException("一网通");
             }
-            if ((requestData & LIBRARY_BOOK) == LIBRARY_BOOK) {
+            if ((requestData & LIBRARY_BOOK.getId()) == LIBRARY_BOOK.getId()) {
                 if (eOneRequest.isLogin()) {
                     String html = eOneRequest.libraryHtml();
 //                    Utils.StandardUtils.dataPrint(html);

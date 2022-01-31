@@ -22,8 +22,13 @@
 
 package com.wzt.aurora.spider.net;
 
+import com.wzt.aurora.spider.utils.Utils;
 import okhttp3.OkHttpClient;
 import com.wzt.aurora.spider.utils.Value;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import java.io.IOException;
 
 /**
  * <h1>RoomRequest-进行必要的数据请求</h1>
@@ -46,8 +51,9 @@ public class RoomRequest {
 
     /**
      * 获得指定教学楼的教室占用信息的json数据
+     *
      * @param place 必须为以下字符串中的值：
-     * <p>"教","逸","大成","采","机"</p>
+     *              <p>"教","逸","大成","采","机"</p>
      * @return json字符串
      */
     public String roomJson(String place) {
@@ -56,6 +62,7 @@ public class RoomRequest {
 
     /**
      * 获得时间信息的json数据
+     *
      * @return json字符串
      */
     public String dateJson() {
@@ -64,9 +71,37 @@ public class RoomRequest {
 
     /**
      * 获得学期信息的json数据
+     *
      * @return json字符串
      */
     public String semesterJson() {
         return client.fastGet("http://117.50.172.22:8080/NeuAuroraWebApi/semester");
+    }
+
+    /**
+     * 获得校历的二进制数据
+     *
+     * @return 二进制数组
+     */
+    public byte[] schedule() {
+        String url = client.fastGet("http://117.50.172.22:8080/NeuAuroraWebApi/schedule");
+        Request request = Utils.ClientUtils.fastBuildRequest(url);
+        try (Response response = okHttpClient.newCall(request).execute()) {
+            return response.body().bytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获得指定教学楼的教室可用列表的json数据
+     *
+     * @param place 必须为以下字符串中的值：
+     *              <p>"教","逸","大成","采","机"</p>
+     * @return json字符串
+     */
+    public String roomListJson(String place) {
+        return client.fastGet("http://117.50.172.22:8080/NeuAuroraWebApi/roomList?place=" + place);
     }
 }

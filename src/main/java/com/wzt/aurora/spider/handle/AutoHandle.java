@@ -28,9 +28,11 @@ import com.wzt.aurora.spider.data.SemesterData;
 import com.wzt.aurora.spider.exception.AuroraException;
 import com.wzt.aurora.spider.exception.LoginException;
 import com.wzt.aurora.spider.net.NetEnvironmentRequest;
+import com.wzt.aurora.spider.net.NeuRequest;
 import com.wzt.aurora.spider.net.VpnRequest;
 import com.wzt.aurora.spider.utils.Value;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 
 /**
@@ -40,7 +42,7 @@ import java.util.HashMap;
  * @see Handle
  * @see Value.NeuVpnHandleValue
  */
-public class AutoHandle extends Handle implements Value.NeuVpnHandleValue {
+public class AutoHandle extends Handle {
     /**
      * <h3>学号</h3>
      */
@@ -88,6 +90,10 @@ public class AutoHandle extends Handle implements Value.NeuVpnHandleValue {
      * @see Handle
      */
     private Handle handle;
+    /**
+     * <h3>是否为校园网环境</h3>
+     */
+    private Boolean isNeu;
 
     /**
      * VpnHandle的构造方法，通过传入请求数据来返回指定数据
@@ -162,14 +168,13 @@ public class AutoHandle extends Handle implements Value.NeuVpnHandleValue {
      * @param requestData 请求数据，多个数据请使用|隔开
      * @param sleep       函数式接口，需要用户自己实现指定平台的休眠方法
      */
-    public AutoHandle(String id, String pass, String semesterId, int requestData, Sleep sleep) {
+    public AutoHandle(String id, String pass, String semesterId, EnumSet<Value.NeuVpnHandleValue> requestData, Sleep sleep) {
         this.id = id;
         this.pass = pass;
         this.semesterId = semesterId;
-        this.requestData = requestData;
         this.sleep = sleep;
         NetEnvironmentRequest netRequest = new NetEnvironmentRequest();
-        Boolean isNeu = netRequest.isNEUNet();
+        isNeu = netRequest.isNEUNet();
         if (isNeu)
             handle = new NeuHandle(id, pass, semesterId, requestData, sleep);
         else if (!isNeu)
@@ -179,7 +184,7 @@ public class AutoHandle extends Handle implements Value.NeuVpnHandleValue {
     }
 
     @Override
-    public HashMap<Integer, AuroraData> getData() {
+    public HashMap<Enum, AuroraData> getData() {
         return handle.getData();
     }
 }

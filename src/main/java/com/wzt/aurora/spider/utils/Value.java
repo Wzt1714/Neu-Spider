@@ -53,10 +53,11 @@ public class Value {
         dayMap.put("5", "星期六");
         dayMap.put("6", "星期日");
     }
+
     /**
      * <h1>ClientCode-标记请求值</h1>
      */
-    public enum ClientCode{
+    public enum ClientCode {
         /**
          * <h3>无请求的情况</h3>
          */
@@ -130,7 +131,7 @@ public class Value {
     }
 
     /**
-     * <h1>NeuVpnHandleValue-对NeuHandle和VpnHandle常量定义的接口</h1>
+     * <h1>NeuVpnHandleValue-对NeuHandle和VpnHandle常量定义的枚举</h1>
      * <br>
      * <table>
      *   <caption>NeuVpnHandleValue</caption>
@@ -199,46 +200,83 @@ public class Value {
      * @see com.wzt.aurora.spider.handle.NeuHandle
      * @see com.wzt.aurora.spider.handle.VpnHandle
      */
-    public interface NeuVpnHandleValue {
-        /**
-         * <h3>学生数据</h3>
-         * <p>返回数据类型为StudentData</p>
-         */
-        int STUDENT_DATA = 0x0001;
-        /**
-         * <h3>课程表数据</h3>
-         * <p>返回数据类型为CourseData</p>
-         */
-        int COURSE_TABLE = 0x0001 << 1;
-        /**
-         * <h3>绩点数据</h3>
-         * <p>返回数据类型为GpaData</p>
-         */
-        int GPA_DATA = 0x0001 << 2;
-        /**
-         * <h3>考试数据</h3>
-         * <p>返回数据类型为GpaData</p>
-         */
-        int EXAM_DATA = 0x0001 << 3;
+    public enum NeuVpnHandleValue {
         /**
          * <h3>校园卡数据</h3>
          * <p>返回数据类型为CardData</p>
          */
-        int CARD_DATA = 0x0001 << 4;
+        CARD_DATA {
+            @Override
+            public int getId() {
+                return 0x0001 << 4;
+            }
+        },
         /**
-         * <h3>校园网数据</h3>
-         * <p>返回数据类型为NetData</p>
+         * <h3>课程表数据</h3>
+         * <p>返回数据类型为CourseData</p>
          */
-        int NET_DATA = 0x0001 << 5;
+        COURSE_TABLE {
+            @Override
+            public int getId() {
+                return 0x0001 << 1;
+            }
+        },
+        /**
+         * <h3>考试数据</h3>
+         * <p>返回数据类型为GpaData</p>
+         */
+        EXAM_DATA {
+            @Override
+            public int getId() {
+                return 0x0001 << 3;
+            }
+        },
+        /**
+         * <h3>绩点数据</h3>
+         * <p>返回数据类型为GpaData</p>
+         */
+        GPA_DATA {
+            @Override
+            public int getId() {
+                return 0x0001 << 2;
+            }
+        },
         /**
          * <h3>借阅数据数据</h3>
          * <p>返回类型为BookData</p>
          */
-        int LIBRARY_BOOK = 0x0001 << 6;
+        LIBRARY_BOOK {
+            @Override
+            public int getId() {
+                return 0x0001 << 6;
+            }
+        },
+        /**
+         * <h3>校园网数据</h3>
+         * <p>返回数据类型为NetData</p>
+         */
+        NET_DATA {
+            @Override
+            public int getId() {
+                return 0x0001 << 5;
+            }
+        },
+        /**
+         * <h3>学生数据</h3>
+         * <p>返回数据类型为StudentData</p>
+         */
+        STUDENT_DATA {
+            @Override
+            public int getId() {
+                return 0x0001;
+            }
+        };
+
+        public abstract int getId();
     }
 
     /**
-     * <h1>RoomHandleValue-对RoomHandle常量定义的接口</h1>
+     * <h1>RoomHandleValue-对RoomHandle常量定义的枚举</h1>
      * <br>
      * <table>
      *   <caption>RoomHandleValue参数</caption>
@@ -299,6 +337,48 @@ public class Value {
      *           <td>|</td>
      *           <td>SemesterData</td>
      *       </tr>
+     *       <tr>
+     *           <td>SCHOOL_SCHEDULE</td>
+     *           <td>|</td>
+     *           <td>校历数据</td>
+     *           <td>|</td>
+     *           <td>SchoolScheduleData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>HE_SHI_LI_LIST</td>
+     *           <td>|</td>
+     *           <td>何世礼可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>YI_FU_LIST</td>
+     *           <td>|</td>
+     *           <td>逸夫楼可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>DA_CHENG_LIST</td>
+     *           <td>|</td>
+     *           <td>大成教学馆可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>CAI_KUANG_LIST</td>
+     *           <td>|</td>
+     *           <td>采矿馆可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
+     *       <tr>
+     *           <td>JI_DIAN_LIST</td>
+     *           <td>|</td>
+     *           <td>机电馆可用教室列表</td>
+     *           <td>|</td>
+     *           <td>RoomListData</td>
+     *       </tr>
      *   </tbody>
      * </table>
      * <br>
@@ -306,41 +386,138 @@ public class Value {
      *
      * @see com.wzt.aurora.spider.handle.RoomHandle
      */
-    public interface RoomHandleValue {
+    public enum RoomHandleValue {
         /**
          * <h3>何世礼教室占用情况</h3>
          * <p>返回类型为RoomData</p>
          */
-        int HE_SHI_LI_OCCUPY = 0x0001;
+        HE_SHI_LI_OCCUPY {
+            @Override
+            public int getId() {
+                return 0x0001 << 7;
+            }
+        },
         /**
          * <h3>逸夫楼教室占用情况</h3>
          * <p>返回类型为RoomData</p>
          */
-        int YI_FU_OCCUPY = 0x0001 << 1;
+        YI_FU_OCCUPY {
+            @Override
+            public int getId() {
+                return 0x0001 << 8;
+            }
+        },
         /**
          * <h3>大成教室占用情况</h3>
          * <p>返回类型为RoomData</p>
          */
-        int DA_CHENG_OCCUPY = 0x0001 << 2;
+        DA_CHENG_OCCUPY {
+            @Override
+            public int getId() {
+                return 0x0001 << 9;
+            }
+        },
         /**
          * <h3>采矿馆教室占用情况</h3>
          * <p>返回类型为RoomData</p>
          */
-        int CAI_KUANG_OCCUPY = 0x0001 << 3;
+        CAI_KUANG_OCCUPY {
+            @Override
+            public int getId() {
+                return 0x0001 << 10;
+            }
+        },
         /**
          * <h3>机电馆教室占用情况</h3>
          * <p>返回类型为RoomData</p>
          */
-        int JI_DIAN_OCCUPY = 0x0001 << 4;
+        JI_DIAN_OCCUPY {
+            @Override
+            public int getId() {
+                return 0x0001 << 11;
+            }
+        },
         /**
          * <h3>需要的日期数据</h3>
          * <p>返回类型为DateData</p>
          */
-        int DATE_DATA = 0x0001 << 5;
+        DATE_DATA {
+            @Override
+            public int getId() {
+                return 0x0001 << 12;
+            }
+        },
         /**
          * <h3>学期数据</h3>
          * <p>返回类型为SemesterData</p>
          */
-        int SEMESTER_DATA = 0x0001 << 6;
+        SEMESTER_DATA {
+            @Override
+            public int getId() {
+                return 0x0001 << 13;
+            }
+        },
+        /**
+         * <h3>校历数据</h3>
+         * <p>返回数据为RoomListData</p>
+         */
+        SCHOOL_SCHEDULE {
+            @Override
+            public int getId() {
+                return 0x0001 << 14;
+            }
+        },
+        /**
+         * <h3>何世礼教室可使用列表</h3>
+         * <p>返回数据为SchoolScheduleData</p>
+         */
+        HE_SHI_LI_LIST {
+            @Override
+            public int getId() {
+                return 0x0001 << 15;
+            }
+        },
+        /**
+         * <h3>逸夫楼教室可使用列表</h3>
+         * <p>返回数据为RoomListData</p>
+         */
+        YI_FU_LIST {
+            @Override
+            public int getId() {
+                return 0x0001 << 16;
+            }
+        },
+        /**
+         * <h3>大成教室可使用列表</h3>
+         * <p>返回数据为RoomListData</p>
+         */
+        DA_CHENG_LIST {
+            @Override
+            public int getId() {
+                return 0x0001 << 17;
+            }
+        },
+        /**
+         * <h3>采矿馆教室可使用列表</h3>
+         * <p>返回数据为RoomListData</p>
+         */
+        CAI_KUANG_LIST {
+            @Override
+            public int getId() {
+                return 0x0001 << 18;
+            }
+        },
+        /**
+         * <h3>机电馆教室可使用列表</h3>
+         * <p>返回数据为RoomListData</p>
+         */
+        JI_DIAN_LIST {
+            @Override
+            public int getId() {
+                return 0x0001 << 19;
+            }
+        };
+
+        public abstract int getId();
     }
 }
