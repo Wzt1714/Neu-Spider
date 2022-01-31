@@ -1,10 +1,8 @@
 # Neu-Aurora-Spider
 
----
 
 ### 🔥🔥🔥东北大学最新爬虫🔥🔥🔥
 
----
 
 > 这是一个东北大学的爬虫项目，使用Java+OkHttp实现，可以用于Android和服务端
 >
@@ -19,7 +17,6 @@
 
 ## 准备工作
 
----
 
 在开始使用爬虫之前，请加入所需依赖，如果你使用Gradle工具，请在`build.gradle`文件下加入下面内容：
 
@@ -67,7 +64,6 @@ dependencies {
 
 ## 开始
 
----
 
 > 网络环境未知/已知指的是是否确定为校园网/非校园网环境
 
@@ -196,12 +192,10 @@ HashMap<Enum, AuroraData> data = roomHandle.getData();
 [点此](https://github.com/Wzt1714/Neu-Aurora-Spider/blob/main/DEMO.md) 查看完整demo
 
 ## 更新问题
----
 
 间断更新，作者苦逼大三狗，这个也是android端app `SmartNeu` 的核心爬虫，同性交友站的issue也会看，但不会那么频繁。有bug可以QQ或者邮箱联系我。不用阿帕奇的网络请求框架是因为不兼容android，而且后来发现okhttp确实好用。顺便吐槽一下，现在时间是2022/1/31，shabi学校WebVpn维护不开，OpenVpn也连不上去。。。
 
 ## License
----
 
 ### [MIT协议](https://github.com/Wzt1714/Neu-Aurora-Spider/blob/main/LICENSE.md)
 ``````
@@ -229,7 +223,6 @@ HashMap<Enum, AuroraData> data = roomHandle.getData();
 ``````
 
 ## 放在最后
----
 搞了三四天，总算把这玩意搞定了，这个项目完美兼容Android端，爬取学校的最新一网通网站，所以也和最新的校园网收费规则一致，目前已知的最新的爬虫了
 ，作者不咋上同性交友站，有问题或者建议可以加[QQ](tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1714233956&website=www.oicqzone.com) (1714233956)来一起研究问题（小声逼逼：肯定没人加）
 <br>

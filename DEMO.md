@@ -2,7 +2,7 @@
 
 #### 对于手动进行校园网、WebVpn切换时（分别使用NeuHandle、VpnHandle）：
 
-``````java
+```java
 /*
  * 使用枚举 Value.RoomHandleValue 和 Value.NeuVpnHandle
  */
@@ -96,10 +96,10 @@ public class Main {
         });
     }
 }
-``````
+```
 #### 对于自动进行校园网、WebVpn切换时（使用AutoHandle）：
 
-``````java
+```java
 /*
  * 使用枚举 Value.RoomHandleValue 和 Value.NeuVpnHandle
  */
@@ -172,4 +172,4 @@ public class Main {
         }));
     }
 }
-``````
+```
